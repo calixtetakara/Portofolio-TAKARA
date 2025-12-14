@@ -237,11 +237,21 @@
       overflow: hidden;
       transition: box-shadow 0.3s;
     }
-    .project-image img {
-       max-width: 30rem;
-       max-height: 30rem;
-       background-size: cover;
-    }
+    .project-image {
+  width: 100%;           /* prend toute la largeur du parent */
+  max-width: 30rem;      /* limite maximale */
+  aspect-ratio: 16/9;    /* garde un ratio 16:9, tu peux changer */
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* garde le ratio et remplit le conteneur */
+  display: block;
+}
+
 
     .project-card:hover { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); }
     .project-image { aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(20, 184, 166, 0.1)); }
@@ -307,4 +317,55 @@
       .header nav { display: none; }
       .contact-grid { grid-template-columns: 1fr; }
     }
-  
+  /* Cache la checkbox */
+#menu-toggle {
+  display: none;
+}
+
+/* Icône hamburger cachée sur PC */
+.menu-icon {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: hsl(var(--foreground));
+}
+
+/* Menu normal (PC) */
+.nav-menu {
+  display: flex;
+  gap: 2rem;
+}
+
+/* ===== MODE MOBILE ===== */
+@media (max-width: 768px) {
+
+  /* Afficher l’icône hamburger */
+  .menu-icon {
+    display: block;
+  }
+
+  /* Cacher le menu par défaut */
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: hsl(var(--card));
+    border-top: 1px solid hsl(var(--border));
+    padding: 1rem 0;
+    text-align: center;
+  }
+
+  /* Afficher le menu quand on clique sur l’icône */
+  #menu-toggle:checked + .menu-icon + .nav-menu {
+    display: flex;
+  }
+
+  /* Espacement des liens */
+  .nav-menu a {
+    padding: 0.75rem 0;
+    font-size: 1rem;
+  }
+}
