@@ -89,7 +89,8 @@
 
     /* ===== HERO ===== */
     .hero {
-      min-height: 100vh;
+       min-height: 100%;
+   margin: 10px 10px 70px 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -221,26 +222,38 @@
     .badge.github { background: #f3f4f6; color: #374151; border-color: #e5e7eb; }
   
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      max-width: 56rem;
-      margin: 0 auto;
-       background: hsl(var(--card));
-    }
+  /* ===== GRID DES PROJETS ===== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* responsive automatique */
+  gap: 2rem;
+  max-width: 56rem;   /* limite largeur */
+  margin: 0 auto;     /* centré horizontalement */
+  padding: 1rem;
+  background: hsl(var(--card));
+}
 
-    .project-card {
-     
-      border: 1px solid hsl(var(--border));
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: box-shadow 0.3s;
-    }
-    .project-image {
+/* ===== CARTE PROJET ===== */
+.project-card {
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-align: center;
+  transition: box-shadow 0.3s, transform 0.3s;
+  background: hsl(var(--card));
+}
+
+/* Hover pour desktop */
+.project-card:hover {
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  transform: translateY(-3px);
+}
+
+/* ===== IMAGE DU PROJET ===== */
+.project-image {
   width: 100%;           /* prend toute la largeur du parent */
-  max-width: 30rem;      /* limite maximale */
-  aspect-ratio: 16/9;    /* garde un ratio 16:9, tu peux changer */
+  max-width: 30rem;      /* limite max largeur */
+  aspect-ratio: 16/9;    /* ratio fixe */
   overflow: hidden;
   border-radius: var(--radius);
 }
@@ -252,7 +265,34 @@
   display: block;
 }
 
+/* ===== MEDIA QUERIES POUR RESPONSIVE ===== */
 
+/* Mobile */
+@media (max-width: 480px) {
+  .projects-grid {
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .project-image {
+    max-width: 100%;  /* images prennent toute la largeur */
+  }
+}
+
+/* Tablette */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+/* Supprimer hover sur mobile */
+@media (hover: none) {
+  .project-card:hover {
+    box-shadow: none;
+    transform: none;
+  }
+}
     .project-card:hover { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); }
     .project-image { aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(20, 184, 166, 0.1)); }
     .project-card h3 { font-size: 1.25rem; font-weight: 600; padding: 1.5rem 1.5rem 0.5rem; }
@@ -317,55 +357,4 @@
       .header nav { display: none; }
       .contact-grid { grid-template-columns: 1fr; }
     }
-  /* Cache la checkbox */
-#menu-toggle {
-  display: none;
-}
-
-/* Icône hamburger cachée sur PC */
-.menu-icon {
-  display: none;
-  font-size: 26px;
-  cursor: pointer;
-  color: hsl(var(--foreground));
-}
-
-/* Menu normal (PC) */
-.nav-menu {
-  display: flex;
-  gap: 2rem;
-}
-
-/* ===== MODE MOBILE ===== */
-@media (max-width: 768px) {
-
-  /* Afficher l’icône hamburger */
-  .menu-icon {
-    display: block;
-  }
-
-  /* Cacher le menu par défaut */
-  .nav-menu {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background: hsl(var(--card));
-    border-top: 1px solid hsl(var(--border));
-    padding: 1rem 0;
-    text-align: center;
-  }
-
-  /* Afficher le menu quand on clique sur l’icône */
-  #menu-toggle:checked + .menu-icon + .nav-menu {
-    display: flex;
-  }
-
-  /* Espacement des liens */
-  .nav-menu a {
-    padding: 0.75rem 0;
-    font-size: 1rem;
-  }
-}
+ 
